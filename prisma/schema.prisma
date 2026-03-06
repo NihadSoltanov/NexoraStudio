@@ -1,0 +1,25 @@
+// Nexora Studio - Prisma Schema (SQL Server)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model ContactInquiry {
+  id        Int      @id @default(autoincrement())
+  fullName  String   @db.NVarChar(100)
+  company   String   @db.NVarChar(100)
+  email     String   @db.NVarChar(200)
+  service   String   @db.NVarChar(100)
+  budget    String   @db.NVarChar(50)
+  details   String   @db.NVarChar(Max)
+  status    String   @default("new") @db.NVarChar(20)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_inquiries")
+}
